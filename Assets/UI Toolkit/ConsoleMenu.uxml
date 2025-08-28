@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="consoleRoot" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.59); flex-direction: column;">
+        <ui:VisualElement style="flex-direction: row; height: 60px; margin-top: 5px; margin-right: 5px; margin-bottom: 0; margin-left: 5px;">
+            <ui:TextField placeholder-text="filler text" name="inputField" style="flex-grow: 1; flex-shrink: 1; font-size: 20px;" />
+            <ui:Button text="SUBMIT" name="submitButton" style="width: 160px; font-size: 20px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:ScrollView name="logContainer" style="background-color: rgba(0, 0, 0, 0.59); flex-grow: 1; margin-top: 5px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; border-bottom-right-radius: 45px; border-bottom-left-radius: 45px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>
