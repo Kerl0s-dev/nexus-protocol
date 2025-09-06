@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AudioTrigger : MonoBehaviour
+public class VoiceTrigger : MonoBehaviour
 {
     bool hasPlayed = false;
 

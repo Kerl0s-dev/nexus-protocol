@@ -22,9 +22,15 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        // Singleton (optionnel si tu veux garder un seul InputManager)
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

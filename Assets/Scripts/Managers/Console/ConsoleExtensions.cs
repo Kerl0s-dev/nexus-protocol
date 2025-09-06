@@ -21,6 +21,10 @@ public static class ConsoleExtensions
 {
     public static Dictionary<string, ConsoleCommand> commands = new Dictionary<string, ConsoleCommand>();
 
+    static bool show = false;
+    static Color orange = new Color(1f, 0.6f, 0f, 0.6f);
+    static Color transparent = new Color(1f, 0.5f, 0f, 0.0f);
+
     static ConsoleExtensions()
     {
         Initialize();
@@ -153,7 +157,7 @@ public static class ConsoleExtensions
             var subCommand = args[0].ToLower();
             var subArgs = args.Length > 1 ? args[1..] : Array.Empty<string>();
 
-            if (playerSubCommands.TryGetValue(subCommand, out var action))
+            if (playerSubCommands.TryGetValue(subCommand.ToString(), out var action))
             {
                 AddLog($"-- Executed player sub-command: {subCommand} --", Color.green);
                 action.Invoke(subArgs);
@@ -221,6 +225,36 @@ public static class ConsoleExtensions
                 AddLog($"Prefab '{prefabName}' not found in Resources.");
             }
         }));
+
+        RegisterCommand(new ConsoleCommand("show_triggers", "Displays all AI triggers in the scene", args =>
+        {
+            if (args.Length < 1)
+            {
+                AddLog("Usage: show_triggers <true/false>", Color.orange);
+                return;
+            }
+
+            if (args.Length >= 1 && bool.TryParse(args[0], out var parsed))
+                show = parsed;
+
+            var triggers = GameObject.FindGameObjectsWithTag("Triggers");
+            if (triggers.Length == 0)
+            {
+                AddLog("No AI triggers found in the scene.", Color.orange);
+                return;
+            }
+            foreach (var trigger in triggers)
+            {
+                var renderer = trigger.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    var originalColor = renderer.material.color;
+                    renderer.material.color = show ? orange : transparent;
+                }
+            }
+
+            AddLog($"{(show ? "Activated" : "Deactivated")} triggers rendering", Color.cyan);
+        }));
     }
 
     public static void RegisterCommand(ConsoleCommand command)
@@ -244,7 +278,7 @@ public static class ConsoleExtensions
 
         if (commands.TryGetValue(commandName, out var command))
         {
-            AddLog($"-- Executed command: {command} --", Color.green);
+            AddLog($"-- Executed command: {command.Name.ToLower()} --", Color.green);
             command.Execute.Invoke(args);
         }
         else
